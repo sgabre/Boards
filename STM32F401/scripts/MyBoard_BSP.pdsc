@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <vendor>
+    <name>YourCompany</name>
+    <url>http://www.example.com</url>
+  </vendor>
+
+  <name>MyBoard_BSP</name>
+  <version>1.0.0</version>
+  <description>
+    Board Support Package for STM32F401RETx based boards.
+    Includes CMSIS, HAL drivers, Core application files, startup code, and linker scripts.
+  </description>
+  <license>Apache-2.0</license>
+  <url>http://www.example.com/MyBoard_BSP</url>
+
+  <components>
+    <!-- Core headers and sources -->
+    <component name="Core" version="1.0.0">
+      <description>Application Core: system files, peripheral initialization, main code</description>
+      <files>
+        <file category="header" path="Core/Inc" recursive="true"/>
+        <file category="source" path="Core/Src" recursive="true"/>
+      </files>
+    </component>
+
+    <!-- Startup code -->
+    <component name="Startup" version="1.0.0">
+      <description>Startup assembly and vector table</description>
+      <files>
+        <file category="source" path="Startup/startup_stm32f401retx.s"/>
+      </files>
+    </component>
+
+    <!-- HAL Drivers -->
+    <component name="HAL_Driver" version="1.0.0">
+      <description>STM32 HAL drivers</description>
+      <files>
+        <file category="header" path="Drivers/STM32F4xx_HAL_Driver/Inc" recursive="true"/>
+        <file category="source" path="Drivers/STM32F4xx_HAL_Driver/Src" recursive="true"/>
+        <file category="doc" path="Drivers/STM32F4xx_HAL_Driver/LICENSE.txt"/>
+      </files>
+    </component>
+
+    <!-- CMSIS -->
+    <component name="CMSIS" version="5.10.0">
+      <description>CMSIS headers and startup files</description>
+      <files>
+        <file category="header" path="Drivers/CMSIS" recursive="true"/>
+      </files>
+    </component>
+
+    <!-- Linker Scripts -->
+    <component name="LinkerScripts" version="1.0.0">
+      <description>FLASH/RAM linker scripts</description>
+      <files>
+        <file category="config" path="STM32F401RETX_FLASH.ld"/>
+        <file category="config" path="STM32F401RETX_RAM.ld"/>
+      </files>
+    </component>
+
+  </components>
+
+  <targets>
+    <target>
+      <name>STM32F401RETx</name>
+      <description>STM32F401RETx MCU target</description>
+      <vendor>STMicroelectronics</vendor>
+      <series>STM32F4</series>
+      <core>Cortex-M4</core>
+      <components>
+        <componentRef name="Core"/>
+        <componentRef name="Startup"/>
+        <componentRef name="HAL_Driver"/>
+        <componentRef name="CMSIS"/>
+        <componentRef name="LinkerScripts"/>
+      </components>
+    </target>
+  </targets>
+
+</package>

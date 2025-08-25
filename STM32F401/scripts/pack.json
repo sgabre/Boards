@@ -1,0 +1,8 @@
+{
+	"PACK_VENDOR": "gsi",
+	"PACK_NAME": "board",
+	"PACK_DIRS": [],
+	"PACK_BASE_FILES": ["./License.txt", "../inc/Board.h", "../lib/libBoard.a"],
+	"PDSC_FILES": ["./gsi.board.pdsc"],
+	"PACK_WAREHOUSE": "../Packs"
+}

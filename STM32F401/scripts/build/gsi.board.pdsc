@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="PACK.xsd" schemaVersion="1.6.0">
+  <name>board</name>
+  <vendor>gsi</vendor>
+  <description>NUCLEO-F401 Board Package</description>
+  <!-- empty until the pack gets published -->
+  <url></url>
+  <license>License.txt</license>
+  <releases>
+    <release version="0.1.0" date="2025-07-08"> Initial Release </release>
+  </releases>
+
+
+<conditions> 
+  <condition id="Arm Compiler">
+    <require Tcompiler="ARMCC" Toptions="AC6"/>
+  </condition>
+  <condition id="CM0">
+    <description>Cortex-M0 based device</description>
+    <require condition="Arm Compiler"/>
+    <accept  Dcore="Cortex-M0"/>
+    <accept  Dcore="Cortex-M0+"/>
+  </condition>
+  <condition id="CM3">
+    <description>Cortex-M3 based device</description>
+    <require condition="Arm Compiler"/>
+    <accept  Dcore="Cortex-M3"/>
+  </condition>
+  <condition id="CM4_CM7">
+    <description>Cortex-M4 based device</description>
+    <require condition="Arm Compiler"/>
+    <accept  Dcore="Cortex-M4"/>
+    <accept  Dcore="Cortex-M7"/>
+  </condition>
+</conditions>
+
+
+  <components>
+    <component Cclass="Board" Cgroup="Board" Cversion="0.1.0">
+      <description>Boards</description>
+      <files>
+      <file category="header"  name="inc/Board.h"/> 
+      <file category="library" condition="CM0" name="lib/libBoard.a"/>
+      </files>
+    </component>
+  </components>
+
+</package>
