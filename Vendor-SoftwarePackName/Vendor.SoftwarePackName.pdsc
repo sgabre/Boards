@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<package schemaVersion="1.7.37" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+  xs:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Open-CMSIS-Pack/Open-CMSIS-Pack-Spec/v1.7.37/schema/PACK.xsd">
+  <vendor>Vendor</vendor>
+  <name>SoftwarePackName</name>
+  <description overview="Documentation/README.md">ACME middleware components</description>
+  <url>https://www.acme-website.com/pack/</url>
+  <repository type="git">https://github.com/Open-CMSIS-Pack/SW-Pack-HandsOn.git</repository>
+  <supportContact>support@acme-corp.com</supportContact>
+  <license>LICENSE</license>
+  <licenseSets>
+    <licenseSet id="all" default="true" gating="true">
+      <license name="LICENSE" title="Apache 2.0 License"/>
+    </licenseSet>
+  </licenseSets>
+
+  <releases>
+    <release version="1.0.0" date="2025-08-30">
+      Initial version
+    </release>
+  </releases>
+
+  <keywords>
+    <keyword>Vendor</keyword>
+    <keyword>Vendor Software Pack Name</keyword>
+  </keywords>
+
+  <!-- conditions section (optional for all Software Packs)-->
+  <conditions>
+    
+    <condition id="Tested with Compiler">
+      <accept Tcompiler="ARMCC" Toptions="AC6" />
+      <accept Tcompiler="GCC" />
+      <accept Tcompiler="IAR" />
+    </condition>
+    
+    <condition id="CM0-23">
+      <description>Cortex-M0/M23 based device</description>
+      <require condition="Tested with Compiler" />
+      <accept Dcore="Cortex-M0" />
+      <accept Dcore="Cortex-M0+" />
+      <accept Dcore="Cortex-M23" />
+    </condition>
+    
+    <condition id="CM3">
+      <description>Cortex-M3 based device</description>
+      <accept Dcore="Cortex-M3" />
+    </condition>
+    
+    <condition id="CM4-85">
+      <description>SIMD based device</description>
+      <require condition="Tested with Compiler" />
+      <accept Dcore="Cortex-M4" />
+      <accept Dcore="Cortex-M7" />
+      <accept Dcore="Cortex-M33" />
+      <accept Dcore="Cortex-M55" />
+      <accept Dcore="Cortex-M85" />
+    </condition>
+    
+    <condition id="CMSIS Core with RTOS2">
+      <description>CMSIS Core with RTOS2 for Cortex-M processor</description>
+      <require condition="Tested with Compiler" />
+      <accept condition="CM0-23" />
+      <accept condition="CM3" />
+      <accept condition="CM4-85" />
+      <require Cclass="CMSIS" Cgroup="CORE" />
+      <require Cclass="CMSIS" Cgroup="RTOS2" />
+    </condition>
+  </conditions>
+
+  <!-- optional taxonomy section for defining new component Class and Group names -->
+  <taxonomy>
+    <description Cclass="Vendor-Feature" doc="Documentation/html/md_src_taxonomy.html">Software Pack Name Feature.</description>
+  </taxonomy>
+
+<!-- component section (optional for all Software Packs)-->
+  <components>
+    <bundle Cbundle="Eval" Cclass="Vendor-Feature" Cversion="1.0.3">
+      <description>Evaluation version of ACME SW component</description>
+      <doc>https://www.acme-website.com/Vendor-Feature/Eval</doc>
+      
+      
+      <component Cgroup="MyGroup" Cvariant="Release" Cversion="1.0.3" condition="CMSIS Core with RTOS2">
+        <description>Release version of MyVariant</description>
+        <RTE_Components_h>
+          <!-- the following content goes into file 'RTE_Components.h', alternatively Preinclude may be used -->
+          #define RTE_SoftwarePackName_Release               /* MyVariant Release Version */
+        </RTE_Components_h>
+        <files>
+          <file category="doc" name="Documentation/html/index.html" />
+          <file category="header" name="inc/iSoftwarePackName.h" />
+          <file category="header" name="config/SoftwarePackName_Config.h" attr="config"
+            version="1.0.0" />
+          <file category="library" condition="CM0-23" name="lib/libSoftwarePackName_cm0.a" />
+          <file category="library" condition="CM3" name="lib/libSoftwarePackName_cm3.a" />
+          <file category="library" condition="CM4-85" name="lib/libSoftwarePackName_cm4.a" />
+        </files>
+      </component>
+      
+      <component Cgroup="MyGroup" Cvariant="Debug" Cversion="1.0.3" condition="CMSIS Core with RTOS2">
+        <description>Debug version</description>
+        <RTE_Components_h>
+          <!-- the following content goes into file 'RTE_Components.h', alternatively Preinclude may be used -->
+          #define RTE_SoftwarePackName_Debug               /* MyVariant Debug Version */
+        </RTE_Components_h>
+        <files>
+          <file category="doc" name="Documentation/html/index.html" />
+          <file category="header" name="inc/iSoftwarePackName.h" />
+          <file category="header" name="config/SoftwarePackName_DConfig.h" attr="config" version="1.0.0" />
+          <file category="library" condition="CM0-23" name="lib/libSoftwarePackName_debug_cm0.a" />
+          <file category="library" condition="CM3" name="lib/libSoftwarePackName_debug_cm3.a" />
+          <file category="library" condition="CM4-85" name="lib/libSoftwarePackName_debug_cm4.a" />
+        </files>
+      </component>
+    </bundle>
+    
+    
+    <bundle Cbundle="Commercial" Cclass="Vendor-Feature" Cversion="1.0.2">
+      <description>Commercial version of Vendor's SW component</description>
+      <doc>Documentation/html/index.html</doc>
+      <component Cgroup="MyGroup" Cvariant="Release" Cversion="1.0.2"
+        condition="CMSIS Core with RTOS2" maxInstances="3">
+        <description>Release version of MyVariant</description>
+        <RTE_Components_h>
+          <!-- the following content goes into file 'RTE_Components.h' -->
+        #define RTE_SoftwarePackName_Release               /* MyVariant Release Version */
+      </RTE_Components_h>
+        <files>
+          <file category="doc" name="Documentation/html/index.html" />
+          <file category="header" name="inc/iSoftwarePackName.h" />
+          <file category="header" name="config/SoftwarePackName_Config.h" attr="config"
+            version="1.0.0" />
+          <file category="source" name="sources/iSoftwarePackName.c" />
+          <file category="source" name="sources/SoftwarePackName.c" />
+        </files>
+      </component>
+      
+      
+      <component Cgroup="MyGroup" Cvariant="Debug" Cversion="1.0.2"
+        condition="CMSIS Core with RTOS2">
+        <description>Debug version</description>
+        <RTE_Components_h>
+          <!-- the following content goes into file 'RTE_Components.h' -->
+        #define RTE_SoftwarePackName_Debug               /* MyVariant Debug Version */
+      </RTE_Components_h>
+        <files>
+          <file category="doc" name="Documentation/html/index.html" />
+          <file category="header" name="inc/iSoftwarePackName.h" />
+          <file category="header" name="config/SoftwarePackName_DConfig.h" attr="config"
+            version="1.0.0" />
+          <file category="source" name="sources/iSoftwarePackName.c" />
+          <file category="source" name="sources/SoftwarePackName.c" />
+        </files>
+      </component>
+      
+      
+    </bundle>
+  </components>
+
+</package>

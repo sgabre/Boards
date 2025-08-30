@@ -1,0 +1,123 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default-host",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/host/${presetName}"
+        },
+        {
+            "name": "default-target",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+		    "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabi.cmake",
+            "cacheVariables": {
+            }
+        },
+        {
+            "name": "Host-UnitTest",
+            "inherits": "default-host",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "TEST_LEVEL":"UNIT"
+            }
+        },
+           {
+            "name": "Target-UnitTest",
+            "inherits": "default-host",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "TEST_LEVEL":"UNIT"
+            }
+        },
+        {
+            "name": "Host-Debug",
+            "inherits": "default-host",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "Host-Release",
+            "inherits": "default-host",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        
+        {
+            "name": "Target-Debug",
+            "inherits": "default-target",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "RelWithDebInfo",
+            "inherits": "default-target",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
+            "name": "Release",
+            "inherits": "default-target",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "MinSizeRel",
+            "inherits": "default-target",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "MinSizeRel"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Host-UnitTest",
+            "configurePreset": "Host-UnitTest"
+        },
+        {
+            "name": "Target-UnitTest",
+            "configurePreset": "Target-UnitTest"
+        },
+        {
+            "name": "Host-Debug",
+            "configurePreset": "Host-Debug"
+        },
+        {
+            "name": "Host-Release",
+            "configurePreset": "Host-Release"
+        },
+        {
+            "name": "Target-Debug",
+            "configurePreset": "Target-Debug"
+        },
+        {
+            "name": "RelWithDebInfo",
+            "configurePreset": "RelWithDebInfo"
+        },
+        {
+            "name": "Release",
+            "configurePreset": "Release"
+        },
+        {
+            "name": "MinSizeRel",
+            "configurePreset": "MinSizeRel"
+        }
+    ],
+
+    "testPresets": [
+    {
+      "name": "UnitTest",
+      "configurePreset": "Host-UnitTest",
+      "output": {"outputOnFailure": true},
+      "execution": {"noTestsAction": "error", "stopOnFailure": true}
+    }
+  ]
+
+}
